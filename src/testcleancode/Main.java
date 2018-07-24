@@ -7,7 +7,6 @@ package testcleancode;
 
 import com.google.gson.*;
 
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,13 +18,12 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws Exception {
-        JsonParser jp = new JsonParser();
+    public static void main(String[] args) {
+        JsonObject json = JSONReader.readFromFile("fileName.json");
         Gson gson = new Gson();
-        Object json = jp.parse(new FileReader("fileName.json"));
-        JsonObject jo = (JsonObject) json;
-        JsonObject data = (JsonObject) jo.get("data");
+        JsonObject data = (JsonObject) json.get("data");
         JsonObject jsonPlanet = (JsonObject) data.get("Planets");
+        JsonArray jsonHouses = data.getAsJsonArray("Houses");
 
         List<Planet> planets = new ArrayList<>();
         for (String s : jsonPlanet.keySet()) {
@@ -41,7 +39,6 @@ public class Main {
         });
 
         List<House> houses = new ArrayList<>();
-        JsonArray jsonHouses = data.getAsJsonArray("Houses");
         for (JsonElement jsonHouse : jsonHouses) {
             House h = gson.fromJson(jsonHouse, House.class);
             houses.add(h);
@@ -56,8 +53,6 @@ public class Main {
             }
 
         });
-
-
     }
 }
 
