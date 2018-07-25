@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package testcleancode;
 
 import com.google.gson.*;
@@ -10,22 +6,17 @@ import com.google.gson.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Anh Tuan
- */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
         JsonObject json = JSONReader.readFromFile("fileName.json");
         Gson gson = new Gson();
         JsonObject data = (JsonObject) json.get("data");
+        
         JsonObject jsonPlanet = (JsonObject) data.get("Planets");
-        JsonArray jsonHouses = data.getAsJsonArray("Houses");
-
         List<Planet> planets = new ArrayList<>();
+        
         for (String s : jsonPlanet.keySet()) {
             JsonObject planet = (JsonObject) jsonPlanet.get(s);
             Planet p = gson.fromJson(planet, Planet.class);
@@ -34,26 +25,27 @@ public class Main {
 
         planets.forEach(planet -> {
             if (planet.getLongitude() > 180) {
-//                System.out.println(planet);
+
             }
         });
-
+        
+        
+        JsonArray jsonHouses = data.getAsJsonArray("Houses");
         List<House> houses = new ArrayList<>();
+
         for (JsonElement jsonHouse : jsonHouses) {
-            House h = gson.fromJson(jsonHouse, House.class);
-            houses.add(h);
+            House house = gson.fromJson(jsonHouse, House.class);
+            houses.add(house);
         }
 
-        House h1 = houses.get(0);
-        House h2 = houses.get(1);
+        House houseone = houses.get(0);
+        House housetwo = houses.get(1);
 
         planets.forEach(planet -> {
-            if (planet.getLongitude() > h1.longitude && planet.getLongitude() < h2.longitude) {
+            if (planet.getLongitude() > houseone.longitude && planet.getLongitude() < housetwo.longitude) {
                 System.out.println(planet);
             }
 
         });
     }
 }
-
-

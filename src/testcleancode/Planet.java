@@ -104,12 +104,4 @@ class Planet {
         return "Planet{" + "longitude=" + longitude + ", sign=" + sign + ", signName=" + signName + ", degrees=" + degrees + ", minutes=" + minutes + ", position_string=" + position_string + ", retrograde=" + retrograde + ", name=" + name + ", house=" + house + '}';
     }
 
-    public void setNameWithAge(String name, int age){
-        if (age <= 0){
-            System.out.println("loi cmnr");
-        } else {
-
-        }
-    }
-
 }
